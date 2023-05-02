@@ -105,23 +105,144 @@ os.system('cls' if os.name=="nt" else 'clear')
 # personel = Person # personel instance değil, class oldu.
 # other_intance = personel() # Yeni class ile instance oluşturuldu.
 
-class Person:
-    name = 'Qadir'
-    surname = 'Adamson'
+# ---------------------------------------------
 
-    def full_name(self):
-        print(f'{self.name} {self.surname}')
-    
+# class Person:
 
-personel = Person()
-personel.name = 'Rafe'
-personel.surname = 'Stefano'
+#     name = 'Qadir'
+#     surname = 'Adamson'
 
-Person.full_name(Person)
-# personel.full_name()
-# print(Person.name)
-# print(Person.surname)
-# print(Person.full_name(Person))
-    
+#     # this -> self
+#     def test(self):
+#         # this yerine self kullanıyoruz.
+#         # self her zaman ilk argüman olmak zorunda.
+#         # Instance'dan method çağırırken self parametresi yollamıyıyoruz.
+#         print(self.name + ' ' + self.surname)
+
+# personel = Person()
+# personel.name = 'Rafe'
+# personel.surname = 'Stefano'
+# personel.test() # Arka planda şu şekilde çalışır -> Person.test(personel)
+
+# ---------------------------------------------
+# Public / Private Attrs:
+
+# class Person:
+
+#     name = 'Qadir'
+#     surname = 'Adamson'
+#     # Underscore ile başlayan değişkenlerin instance tarafında çağırlmaması/değiştirilmemesi beklenir.
+#     # Piyasa standartıdır. Çağrılabilir.
+#     _path = 'FS'
+#     # Double-Underscore ile başlayan değişkenleri dışardan çağrılmasını engeller.
+#     __location = 'Germany'
+
+
+# personel = Person()
+# print(personel.name)
+# personel._path = 'AWS'
+# print(personel._path) # Private attr'e erişim sağlanmaz.
+# print(personel._Person__location) # Private attr'e ulaşmanın yolu.
+
+# ---------------------------------------------
+# Getter ve Setter Methodlar:
+
+# class Person:
+
+#     name = 'Qadir'
+#     surname = 'Adamson'
+#     # Underscore ile başlayan değişkenlerin instance tarafında çağrılmaması/değiştirilmemesi beklenir.
+#     # Piyasa standartıdır. Çağrılabilir.
+#     _path = 'FS'
+#     # Double-Underscore ile başlayan değişkenlerin dışardan çağrılmasını engeller.
+#     __location = 'Germany'
+
+#     def get_location(self):  # Getter Methods: get_ ile başlayan metodlar.
+#         return self.__location
+
+#     def set_location(self, new_val):  # Setter Methods: set_ ile başlayan metodlar.
+#         self.__location = new_val
+
+# personel = Person()
+# print(personel.get_location())
+# personel.set_location('Turkey')
+# print(personel.get_location())
+
+# class SendMail:
+
+#     __is_sent = False
+
+#     def send(self): # Setter Method.
+#         # Mail gönderme komutları
+#         # Mail gönderdikten sonra gönderildi bilgisini True yap.
+#         self.__is_sent = True
+
+#     def get_status(self): # Getter Method
+#         # Mail gönderildi mi bilgisini ver.
+#         return self.__is_sent
+
+# mail = SendMail()
+# print('Mail gönderildi mi?', mail.get_status()) # Bu bilgi hangi değişkenden olduğunu bilmiyoruz.
+# mail.send()
+# print('Mail gönderildi mi?', mail.get_status()) # Bu bilgi hangi değişkenden olduğunu bilmiyoruz.
+
+# ---------------------------------------------
+# Static Method:
+
+# class Person:
+
+#     name = 'Qadir'
+#     surname = 'Adamson'
+
+#     @staticmethod
+#     def test():
+#         print('Hello')
+
+#     @staticmethod
+#     def hello(name, surname):
+#         print('Hello ' + name + ' ' + surname)
+
+# personel = Person()
+# personel.test()
+# personel.hello('Qadir', 'Adamson')
+
+# ---------------------------------------------
+# Double-Underscore Methods: DunderMethods: __method__()
+# Python için özel anlam içeren methodlardır. İsimleri sabittir.
+
+# class Person:
+
+#     name = 'Qadir'
+#     surname = 'Adamson'
+
+#     # __str__ : Instance default return.
+#     def __str__(self):
+#        return 'Bu benim yazdığım classtan üretilmiş bir intance\'dır.'
+
+#     def ekrana_yaz(self):
+#         print(f'{self.name} {self.surname}')
+
+#     # Constructor Method:
+#     # Instance oluşturulduğunda otomatik çalışan method.
+#     def __init__(self):
+#         self.name = 'Rafe'
+#         self.surname = 'Stefano'
+
+
+
+# # print(Person)
+# personel = Person()
+# print(personel)
+# personel.ekrana_yaz()
+
+# ---------------------------------------------
+
+from module import Module
+
+print(dir(Module))
+instance = Module()
+print(instance)
+print(Module.__doc__)
+
 
 
