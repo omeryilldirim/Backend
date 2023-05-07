@@ -34,6 +34,9 @@ echo "alias pip='pip3'" >> ~/.zshrc
     # Run Django:
     $ python manage.py runserver # to close "Ctrl + C"
 
+    # Install exported requriements.txt:
+    $ pip install -r requirements.txt
+
     # DB Migrate:
     $ python manage.py migrate
     # Create SuperUser:
