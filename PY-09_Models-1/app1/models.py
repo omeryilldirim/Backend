@@ -14,7 +14,7 @@ class Student(models.Model):
     def __str__(self): # Kayıt yazdır.
         return f'{self.first_name} {self.last_name} # {self.number}'
     
-    class Meta: # Default özellikleri değiştir.
+    class Meta: # Default yapılandırma oluştur/değiştir.
         # https://docs.djangoproject.com/en/4.2/ref/models/options/
         verbose_name = 'Öğrenci'
         verbose_name_plural = 'Öğrenciler'
