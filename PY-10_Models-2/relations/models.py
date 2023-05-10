@@ -8,7 +8,7 @@ class Account(models.Model):
     def __str__(self):
         return f'{self.username} - {self.password} - {self.email}'
     
-
+# OneToOne
 class Profile(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -53,7 +53,8 @@ class Address(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.address} - {self.country} - {self.phone}'
-    
+
+# ManyToMany    
 class Product(models.Model):
     brand = models.CharField(max_length=50)
     product = models.CharField(max_length=50)
