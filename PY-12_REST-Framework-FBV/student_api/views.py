@@ -27,8 +27,8 @@ def home(request):
 def student_list(request):
     students = Student.objects.all()
     serializer = StudentSerializer(instance=students, many=True)
-    print(dir(serializer))
-    print(serializer.data)
+    # print(dir(serializer))
+    # print(serializer.data)
     return Response(serializer.data)
 
 @api_view(['POST'])
@@ -147,5 +147,6 @@ def student_detail_update_delete(request, pk):
         case 'DELETE':
             student.delete()
             return Response({
-                'message': f'{student} deleted successfully!'
+                'message': f'{student} deleted successfully!',
+                'data': serializer.data,
             }, status=status.HTTP_204_NO_CONTENT )
