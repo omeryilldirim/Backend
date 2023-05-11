@@ -148,5 +148,5 @@ def student_detail_update_delete(request, pk):
             student.delete()
             return Response({
                 'message': f'{student} deleted successfully!',
-                'data': serializer.data,
+                'data': serializer.data, 
             }, status=status.HTTP_204_NO_CONTENT )
