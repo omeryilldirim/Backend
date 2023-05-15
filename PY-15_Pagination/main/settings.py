@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Modules:
     'rest_framework',
+    'django_filters',
     # Apps:
     'todo',
 ]
@@ -130,6 +131,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
     # 'PAGE_SIZE': 50
+    # 'DEFAULT_FILTER_BACKENDS': [
+    #   'django_filters.rest_framework.DjangoFilterBackend', 
+    #   'rest_framework.filters.SearchFilter',
+    #   'rest_framework.filters.OrderingFilter'
+    # ]
 }
