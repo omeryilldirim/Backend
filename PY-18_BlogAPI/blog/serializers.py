@@ -8,7 +8,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    user  = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
+
+    category = serializers.StringRelatedField()
+    category_id = serializers.IntegerField()
     class Meta:
         model = Post
-        exclude = []
+        exclude = [
+            # 'created_date',
+            # 'updated_date',
+        ]
         
