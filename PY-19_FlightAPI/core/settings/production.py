@@ -15,12 +15,17 @@ MIDDLEWARE += []
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASES = { 
+    "default": { 
+        "ENGINE": "django.db.backends.postgresql", 
+        "NAME": config("SQL_DATABASE"), 
+        "USER": config("SQL_USER"), 
+        "PASSWORD": config("SQL_PASSWORD"), 
+        "HOST": config("SQL_HOST"), 
+        "PORT": config("SQL_PORT"), 
+        "ATOMIC_REQUESTS": True, # wait for all queries to be executed before commiting
     }
-}
+} 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

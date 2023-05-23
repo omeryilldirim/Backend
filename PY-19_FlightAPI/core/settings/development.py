@@ -64,14 +64,14 @@ LOGGING = {
         "console": { 
             "class": "logging.StreamHandler", 
             "formatter": "standard", 
-            "level": "WARNING", 
+            "level": "INFO", 
             "stream": "ext://sys.stdout", 
             }, 
         'file': { 
             'class': 'logging.FileHandler', 
             "formatter": "verbose", 
             'filename': './debug.log', 
-            'level': 'INFO', 
+            'level': 'WARNING', 
         }, 
     }, 
     # A logger is the entry point into the logging system. 
