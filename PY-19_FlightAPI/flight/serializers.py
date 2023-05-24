@@ -43,18 +43,18 @@ class FlightSerializer(FixSerializer):
     class Meta:
         model = Flight
         fields = ('id', 
-                  'flight_number', 
-                  'airline', 
-                  'departure', 
-                  'departure_text', 
-                  'departure_date', 
-                  'arrival', 
-                  'arrival_date', 
-                  'created', 
-                  'created_id', 
-                  'created_time', 
-                  'updated_time', 
-                  'get_airline_display' # dont need SerializerMethodField
+                'flight_number', 
+                'airline', 
+                'departure', 
+                'departure_text', 
+                'departure_date', 
+                'arrival', 
+                'arrival_date', 
+                'created', 
+                'created_id', 
+                'created_time', 
+                'updated_time', 
+                'get_airline_display' # dont need SerializerMethodField
         )
 
     def get_departure_text(self, obj):
@@ -70,9 +70,15 @@ class ReservationSerializer(FixSerializer):
 
     # flight = serializers.StringRelatedField() ## only __str__ data
     flight = FlightSerializer(read_only=True) ## complete data
-    flight_id = serializers.IntegerField(write_only=True)
     passenger = PassengerSerializer(many=True, read_only=True)
+
+    flight_id = serializers.IntegerField(write_only=True)
+    passenger_ids = serializers.ListField(write_only=True)
 
     class Meta:
         model = Reservation
         fields = '__all__'
+
+    def create(self, validated_data):
+        validated_data["passenger"] = validated_data.pop('passenger_ids')
+        return super().create(validated_data)
