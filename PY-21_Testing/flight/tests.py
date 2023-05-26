@@ -5,6 +5,7 @@ from django.urls import reverse
 from rest_framework.authtoken.models import Token
 
 # https://docs.djangoproject.com/en/4.2/ref/urlresolvers/
+# https://www.django-rest-framework.org/api-guide/routers/#defaultrouter
 
 class FlightTestCase(APITestCase):
     
