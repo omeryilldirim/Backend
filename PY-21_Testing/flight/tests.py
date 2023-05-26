@@ -78,3 +78,11 @@ class FlightTestCase(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Flight.objects.get(id=1).flight_number, 'TK100')
         self.assertEqual(Flight.objects.count(), 1)
+
+    def test_flight_delete_as_admin_user(self):
+        request = self.factory.delete(reverse('flight-detail', kwargs={'pk':1}))
+        force_authenticate(request, self.user)
+        self.user.is_staff = True
+        self.user.save()
+        response = FlightView.as_view({'delete': 'destroy'})(request, pk='1')
+        self.assertEqual(response.status_code, 204)
