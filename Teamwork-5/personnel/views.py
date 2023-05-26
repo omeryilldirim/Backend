@@ -8,6 +8,7 @@ from .serializers import(
 class DepartmentView(ModelViewSet):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
+    
 
 class PersonnelView(ModelViewSet):
     queryset = Personnel.objects.all()

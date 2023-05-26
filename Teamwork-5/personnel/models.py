@@ -7,6 +7,9 @@ class Department(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Personnel(models.Model):
     GENDERS = (('F', 'Female'),('M', 'Male'),('0', 'Prefer Not To Say'))
@@ -23,3 +26,6 @@ class Personnel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
