@@ -74,7 +74,7 @@ class ReservationSerializer(FixSerializer):
 
     flight_id = serializers.IntegerField(write_only=True)
     passenger_ids = serializers.ListField(write_only=True)
-
+    
     class Meta:
         model = Reservation
         fields = '__all__'

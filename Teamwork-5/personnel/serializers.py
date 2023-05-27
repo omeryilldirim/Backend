@@ -9,7 +9,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
-
+    department_personnel = PersonnelSerializer(many=True, read_only=True)
     class Meta:
         model = Department
         exclude= []

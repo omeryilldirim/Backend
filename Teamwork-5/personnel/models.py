@@ -22,7 +22,7 @@ class Personnel(models.Model):
     email = models.EmailField(unique=True)
     salary = models.PositiveIntegerField()
     started = models.DateField(auto_now_add=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='department_personnel')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
