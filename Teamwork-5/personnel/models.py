@@ -16,7 +16,7 @@ class Personnel(models.Model):
 
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
-    gender = models.CharField(max_length=16, choices=GENDERS)
+    gender = models.CharField(max_length=8, choices=GENDERS)
     age = models.PositiveIntegerField()
     title = models.CharField(max_length=64)
     email = models.EmailField(unique=True)
