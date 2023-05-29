@@ -9,3 +9,8 @@ class IsSuperuser(permissions.IsAdminUser):
 
     def has_permission(self, request, view):
         return bool(request.user.is_superuser)
+8
+class IsRegularUser(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        return bool(not (request.user.is_staff or request.user.is_superuser))

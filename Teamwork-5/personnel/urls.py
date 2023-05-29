@@ -3,5 +3,5 @@ from .views import DepartmentView, PersonnelView
 
 router = DefaultRouter()
 router.register('department', DepartmentView)
-router.register('personnel', PersonnelView)
+router.register('', PersonnelView)
 urlpatterns = router.urls

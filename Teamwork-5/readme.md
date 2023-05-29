@@ -8,7 +8,7 @@ Staff olmayanlar sadece listeleyebilecek
 Personeli silme yetkisi sadece superuserlarda olacak.
 Token authentication kullanacağız. Kullanıcı logout olduğunda tokeni sileceğiz.
 
-user - listeleme
-staff - yeni personel ekleme, update
-superuser - personel silme
+user - list, get 
+staff - create, update, patch
+superuser - delete
 '''
