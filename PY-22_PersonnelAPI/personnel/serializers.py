@@ -5,12 +5,12 @@ from .models import Department, Personnel
 class PersonnelSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Department
+        model = Personnel
         fields = '__all__'
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Personnel
+        model = Department
         fields = '__all__'
