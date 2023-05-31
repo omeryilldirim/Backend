@@ -1,0 +1,26 @@
+# Altyapı: Python
+FROM python:alpine3.18
+
+# Çalışma dizini
+WORKDIR /app
+
+# Uygulama dosyaları
+# COPY <kaynak> <hedef>
+# COPY app.py /app
+COPY . .
+
+# Command (docker run)
+CMD python app.py
+# can be also written as
+# CMD [ "python", "./app.py" ]
+
+# Gerekli kütüphaneler
+# COPY requirements.txt ./
+# RUN pip install --no-cache-dir -r requirements.txt
+
+
+# Dockerfile dosyasını build etmek için:
+# docker build -t <image-name> .
+
+# Dockerfile dosyasını build ederken cache kullanmamak için:
+# docker build --no-cache -t <image-name> .
