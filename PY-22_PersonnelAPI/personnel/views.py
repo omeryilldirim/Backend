@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from .serializers import DepartmentSerializer, PersonnelSerializer, Personnel, Department,DepartmentPersonnelSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAdminOrReadOnly
 
 class DepartmentListCreateView(ListCreateAPIView):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsAdminOrReadOnly,
+    )
 
 
 class DepartmentRUDView(RetrieveUpdateDestroyAPIView):
@@ -15,6 +21,11 @@ class DepartmentRUDView(RetrieveUpdateDestroyAPIView):
 class PersonnelListCreateView(ListCreateAPIView):
     queryset = Personnel.objects.all()
     serializer_class = PersonnelSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsAdminOrReadOnly,
+    )
+
 
 
 class PersonnelRUDView(RetrieveUpdateDestroyAPIView):
@@ -25,6 +36,11 @@ class PersonnelRUDView(RetrieveUpdateDestroyAPIView):
 class DepartmentPersonnelView(ListAPIView):
     queryset = Department.objects.all()
     serializer_class = DepartmentPersonnelSerializer
+    permission_classes = (
+        IsAuthenticated,
+        IsAdminOrReadOnly,
+    )
+
 
     def get_queryset(self):
         """
