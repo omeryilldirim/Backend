@@ -1,0 +1,12 @@
+FROM node:19-slim
+
+WORKDIR /frontend
+
+COPY . .
+
+RUN npm install
+# yarn
+
+CMD npm start
+# yarn start
+EXPOSE 3000
