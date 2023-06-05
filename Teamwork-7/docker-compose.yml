@@ -1,0 +1,11 @@
+version: "1.0"
+
+services:
+
+  web:
+    build: .
+    ports:
+      - 8000:8000
+    restart: on-failure
+    volumes:
+    - $PWD/db.sqlite3:/db.sqlite3
