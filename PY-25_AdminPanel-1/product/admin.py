@@ -56,7 +56,7 @@ class ProductModelAdmin(ModelAdmin):
                 "slug"
             ),
         }),
-        ('Optionals Settings', {
+        ('Optional Settings', {
             "classes": ("collapse",),
             "fields": ("description",),
             'description': "You can use this section for optionals settings"
