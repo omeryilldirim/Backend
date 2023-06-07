@@ -14,6 +14,7 @@ admin.site.site_url = 'https://www.linkedin.com/in/omeryilldirim/'
 
 
 # ------------------ Inline ------------------
+# Ürünlerin yorumlarını ürün-detay sayfasında gösterir.
 class ReviewInline(admin.TabularInline):  # Alternatif: StackedInline (farklı görünüm aynı iş)
     model = Review # Model
     extra = 1 # Yeni review ekleme için ekstra boş alan
@@ -59,7 +60,7 @@ class ProductModelAdmin(ModelAdmin):
         ('Optional Settings', {
             "classes": ("collapse",),
             "fields": ("description",),
-            'description': "You can use this section for optionals settings"
+            'description': "You can use this section for optional settings"
         }),
     )    
 
@@ -81,7 +82,8 @@ class ProductModelAdmin(ModelAdmin):
         from django.utils import timezone
         different = timezone.now() - object.create_date
         return different.days
-    list_display += ['added_days_ago']
+    list_display += ['added_days_ago'] # en son sütun olarak ekler.
+    # list_display = ['id','name', 'description', 'added_days_ago', 'is_in_stock'] # sıralı olarak ekler.
 
     def how_many_reviews(self, object):
         count = object.reviews.count()
