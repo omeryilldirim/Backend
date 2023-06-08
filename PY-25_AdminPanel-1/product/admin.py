@@ -34,6 +34,8 @@ class ProductModelAdmin(ModelAdmin):
     list_filter = ['is_in_stock', 'create_date', 'update_date']
     # arama yapılacak alanlar:
     search_fields = ['name', 'id']
+    # Arama bilgilendirme yazısı: 
+    search_help_text = 'Arama Yapmak için burayı kullanabilirsiniz.'
     # sıralama:
     ordering = ['id']
     #sayfa başına kayıt sayısı:
