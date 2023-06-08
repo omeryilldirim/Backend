@@ -1,6 +1,13 @@
 from django.contrib import admin
-from .models import Product, Review
+from .models import Product, Review, Category
 from django.contrib.admin.options import ModelAdmin
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+
+# https://djangopackages.org/grids/g/admin-interface/
 
 # WYSIWYG (what you see is what you get)
 
@@ -20,10 +27,15 @@ class ReviewInline(admin.TabularInline):  # Alternatif: StackedInline (farklı g
     extra = 1 # Yeni review ekleme için ekstra boş alan
     classes = ['collapse'] # Görüntüleme tipi (default: tanımsız)
 
+# Import-Export ModelResource:
+class ProductModelResource(resources.ModelResource):
+    class Meta:
+        model = Product
+
 
 # ------------------ Product ------------------
 
-class ProductModelAdmin(ModelAdmin):
+class ProductModelAdmin(ImportExportModelAdmin):
     # görüntülenecek alanlar:
     list_display = ['id','name', 'description', 'is_in_stock',]
     # değiştirilebilecek alanlar:
@@ -31,7 +43,7 @@ class ProductModelAdmin(ModelAdmin):
     # Kayda gitmek için linkleme:
     list_display_links = ['name', 'id']
     # filtreleme: 
-    list_filter = ['is_in_stock', 'create_date', 'update_date']
+    list_filter = [('name', DropdownFilter),'is_in_stock', ('create_date', DateRangeFilter), ('update_date', DateTimeRangeFilter)]
     # arama yapılacak alanlar:
     search_fields = ['name', 'id']
     # Arama bilgilendirme yazısı: 
@@ -44,29 +56,39 @@ class ProductModelAdmin(ModelAdmin):
     prepopulated_fields = {'slug' : ['name']}
     # Tarihe göre filtreleme başlığı:
     date_hierarchy = 'create_date'
+
+    readonly_fields = ('view_image',)
     # Form liste görüntüleme
-    # fields = (
-    #     ('name', 'is_in_stock'),
-    #     ('slug'),
-    #     ('description')
-    # )
+    fields = (
+        ('name', 'is_in_stock'),
+        ('slug'),
+        ("image", "view_image"),
+        ('description'),
+        ('categories'),
+    )
     # Detaylı form liste görüntüleme
-    fieldsets = (
-        ('General Settings', {
-            "classes": ("wide",),
-            "fields": (
-                ('name', "is_in_stock"),
-                "slug"
-            ),
-        }),
-        ('Optional Settings', {
-            "classes": ("collapse",),
-            "fields": ("description",),
-            'description': "You can use this section for optional settings"
-        }),
-    )    
+    # fieldsets = (
+    #     ('General Settings', {
+    #         "classes": ("wide",),
+    #         "fields": (
+    #             ('name', "is_in_stock"),
+    #             ("slug"),
+    #             ("image", "view_image"),
+    #         ),
+    #     }),
+    #     ('Optional Settings', {
+    #         "classes": ("collapse",),
+    #         "fields": ("description","categories",),
+    #         'description': "You can use this section for optional settings"
+    #     }),
+    # )
+    # İlişkili tablo (many2many) nasıl görünsün:
+    filter_horizontal = ["categories"] # Yatay Görünüm
+    # filter_vertical = ["categories"] # Dikey Görünüm    
 
     inlines = [ReviewInline]
+    # Import-Export:
+    resource_class = ProductModelResource
 
     def set_in_stock(self, request, queryset):
         count = queryset.update(is_in_stock=True)
@@ -91,6 +113,16 @@ class ProductModelAdmin(ModelAdmin):
         count = object.reviews.count()
         return count
     list_display += ['how_many_reviews']
+    
+    # Listede küçük resim göster:
+    def view_image_in_list(self, obj):
+        from django.utils.safestring import mark_safe
+        if obj.image:
+            return mark_safe(f'<img src={obj.image.url} style="height:30px; width:30px;"></img>')
+        return '-*-'
+
+    list_display = ['view_image_in_list'] + list_display
+    view_image_in_list.short_description = 'IMAGE'
 
 admin.site.register(Product, ProductModelAdmin)
 
@@ -98,13 +130,13 @@ admin.site.register(Product, ProductModelAdmin)
 # ------------------ Review ------------------
 class ReviewModelAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'created_date', 'is_released')
+    list_filter = [('product', RelatedDropdownFilter)]
     list_per_page = 50
     # raw_id_fields = ('product',) 
     # raw id fields, review içinde product, id olarak görünsün istyorsak kullanılır.
 admin.site.register(Review, ReviewModelAdmin)
 
-
-
+admin.site.register(Category)
 
 # Alternative
 
