@@ -1,21 +1,20 @@
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import generics
 from .serializers import (
-    CarSerializer, Car, 
-    ReservationSerializer, Reservation,
-    CustomerSerializer, Customer, 
+    Car, 
+    Reservation,
+    Customer,
+    Query, QuerySerializer, 
+    ReservationSerializer, 
 )
 
-class CarViewSet(ModelViewSet):
-    queryset = Car.objects.all()
-    serializer_class = CarSerializer
+class QueryView(generics.ListCreateAPIView):
+    serializer_class = QuerySerializer
+    queryset = Query.objects.all()
 
 
 class ReservationViewSet(ModelViewSet):
-    queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-
-
-class CustomerViewSet(ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+    queryset = Reservation.objects.all()
