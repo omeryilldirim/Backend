@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     #apps
     'user',
+    'rentacar',
 ]
 
 MIDDLEWARE = [
