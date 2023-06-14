@@ -27,7 +27,7 @@ class CarViewSet(FixViewSet):
         else:
             queryset = super().get_queryset() # değilse default veriyi göster -> Car.objects.filter(available=True)
         
-        # https://localhost/api/car?from=2023-01-20&to=2023-01-25
+        # http://localhost:8000/api/car?from=2023-01-20&to=2023-01-25
         start = self.request.query_params.get('from', None)
         end = self.request.query_params.get('to', None)
 
@@ -36,7 +36,12 @@ class CarViewSet(FixViewSet):
             # not_available_car_ids = Reservation.objects.filter(
             #     start_date__gte=start, start_date__lte=end
             # ).values_list('car_id', flat=True)
-            # queryset = queryset.exclude(id__in=not_available_cars)
+            # queryset = queryset.exclude(id__in=not_available_car_ids)
+
+            # not_available_car_ids = Reservation.objects.filter(
+            #     end_date__gte=start, end_date__lte=end
+            # ).values_list('car_id', flat=True)
+            # queryset = queryset.exclude(id__in=not_available_car_ids)
 
             #* AND ve OR kullanmak için Q parametresini kullabiliriz:
             from django.db.models import Q
