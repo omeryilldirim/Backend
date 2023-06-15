@@ -47,9 +47,7 @@ class CarViewSet(FixViewSet):
             from django.db.models import Q
             print(start, end)
             not_available_car_ids = Reservation.objects.filter(
-                (Q(start_date__gte = start) and Q(start_date__lte = end))
-                or
-                (Q(end_date__gte = start) and Q(end_date__lte = end))
+                Q(start_date__gte = start, start_date__lte = end) | Q(end_date__gte = start, end_date__lte = end)
             ).values_list('car_id', flat=True)
 
             print(not_available_car_ids)
