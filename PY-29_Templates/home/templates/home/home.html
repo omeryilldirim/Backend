@@ -1,0 +1,41 @@
+{% extends 'home/base.html' %}
+
+
+{% block title %}
+    Home
+{% endblock title %}
+    
+
+{% block body %}
+
+    {% load static %}
+    <h1>Home Page</h1>
+
+    <h1>Student Page</h1>
+
+    {{ first_name | title }}
+    <br>
+    {{ book_name | capfirst}}
+    <br>
+    {{ book_name | truncatechars:5}}
+    <br>
+    <!-- my comment for html -->
+    {# my comment for DTL #}
+    {% comment %}  
+        my
+        multiple
+        line
+        comment
+    {% endcomment %}
+
+    <div>
+    {% for year in my_list %}
+        <li>{{ year }}</li>
+    {% endfor %}
+    </div>
+
+
+    <!-- {% load static %} -->
+    <img src="{% static 'home/images/hobbit.jpg' %}" alt="My image" width="300px" >
+
+{% endblock body%}
