@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Student
+from .forms import StudentForm
 
 def home(request):
     return HttpResponse('<h1 style="color:red">Hello World!</h1>')
@@ -21,3 +22,11 @@ def student_detail(request):
         'students': students
     }
     return render(request, 'home/student_detail.html', context)
+
+
+def student_add(request):
+    form = StudentForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'home/student_add.html', context)
