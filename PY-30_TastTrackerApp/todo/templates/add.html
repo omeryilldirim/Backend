@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <hr>
+    <h2>Add Todo</h2>
+
+    <form action="" method="POST" >
+        {% csrf_token %}
+        <table>{{ form }}</table>
+        <input type="submit" value="Add Task">
+    </form>
+
+{% endblock container %}
+
