@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'todo',
 ]
 
 MIDDLEWARE = [
@@ -54,8 +55,8 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [ BASE_DIR / 'templates' ], # template klasörü başka nerde arasın ? burada belirtiyoruz. birden fazla path belirtebiliriz
+        'APP_DIRS': True, # template klasörünü app içinde arasın mı ? true ise arar
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
