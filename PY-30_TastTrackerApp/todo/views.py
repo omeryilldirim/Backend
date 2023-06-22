@@ -28,7 +28,8 @@ def todo_add(request):
     context = {
         'form': form,
     }
-    return render(request, 'add.html', context)
+    # return render(request, 'add.html', context)
+    return render(request, 'add_update.html', context)
 
 # Update:
 def todo_update(request, pk):
@@ -42,14 +43,68 @@ def todo_update(request, pk):
             form.save()
             messages.success(request, 'Task updated.')
             return redirect("todo_list")
-    return render(request, 'update.html', {
+    context = {
         'form': form,
         'todo': todo
-    })
+    }
+    # return render(request, 'update.html', context)
+    return render(request, 'add_update.html', context)
 
 # Delete:
 def todo_delete(request, pk):
     todo = Todo.objects.get(id=pk)
     todo.delete()
     messages.success(request, 'Task deleted.')
+    # no need template
     return redirect("todo_list")
+
+
+# ------------------------------------------------------------
+# Function Based Views
+# ------------------------------------------------------------
+from django.views.generic import (
+    ListView,
+    CreateView,
+    DeleteView,
+    UpdateView,
+    DetailView,
+)
+from django.urls import reverse_lazy
+
+class TodoListView(ListView):
+    model = Todo
+    ordering = ['-id']
+    # template_name = 'todo_list.html'   # template arayacağı path -> after 'templates/' default: 'modelname/modelname_list.html'
+
+
+class TodoCreateView(CreateView):
+    model = Todo
+    form_class = TodoForm
+    success_url = reverse_lazy('todo_list')
+    # template_name = 'todo_form.html'   # template arayacağı path -> after 'templates/' default: 'modelname/modelname_form.html'
+
+    def post(self, request, *args, **kwargs):
+        messages.success(request, 'New task added successfully!')
+        return super().post(request, *args, **kwargs)
+
+
+class TodoDetailView(DetailView):
+    model = Todo
+    # template_name = 'todo_detail.html'   # template arayacağı path -> after 'templates/' default: 'modelname/modelname_detail.html'
+
+
+class TodoUpdateView(UpdateView):
+    model = Todo
+    form_class = TodoForm
+    success_url = reverse_lazy('todo_list')
+    # template_name = 'todo_form.html'   # template arayacağı path -> after 'templates/' default: 'modelname/modelname_form.html'
+
+    def post(self, request, *args, **kwargs):
+        messages.success(request, 'Task updated successfully!')
+        return super().post(request, *args, **kwargs)
+
+
+class TodoDeleteView(DeleteView):
+    model = Todo
+    success_url = reverse_lazy('todo_list')
+    # template_name = 'todo_confirm_delete.html'   # template arayacağı path -> after 'templates/' default: 'modelname/modelname_form.html'
