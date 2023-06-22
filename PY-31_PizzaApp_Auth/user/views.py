@@ -22,6 +22,7 @@ class UserLogoutView(FixView, LogoutView):
 # User Registration
 # --------------------------------------------------
 from django.contrib.auth.forms import UserCreationForm
+# from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 
