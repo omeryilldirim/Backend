@@ -87,8 +87,6 @@ class Purchase(FixModel):
         return super().delete(*args, **kwargs)
     
 
-
-
 class Sale(FixModel):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='brand_sales')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_sales')
