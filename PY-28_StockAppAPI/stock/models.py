@@ -99,23 +99,23 @@ class Sale(FixModel):
     
     # insert/update:
     def save(self, *args, **kwargs):
-        if (self.id): # update
-            old_quantity = Sale.objects.get(id=self.id).quantity
-            new_quantity = self.quantity - old_quantity
-        else: # insert
-            new_quantity = self.quantity
         # Ürün getir:
         product = Product.objects.get(id=self.product_id)
         # Miktar yeterli mi?
-        if (product.stock >= new_quantity):
-        # Yeterli:
+        if (product.stock >= self.quantity):
+            # Yeterli
+            if (self.id): # update
+                old_quantity = Sale.objects.get(id=self.id).quantity
+                new_quantity = self.quantity - old_quantity
+            else: # insert
+                new_quantity = self.quantity
             # Ürün stok bilgi güncelle:
             product.stock -= new_quantity
             # Ürün kaydet:
             product.save()
             return super().save(*args, **kwargs)
         else:
-        # Yeterli değil:
+            # Yeterli değil
             from django.core.exceptions import ValidationError
             raise ValidationError(f'Dont have enough stock. Current stock is {product.stock}')
     
