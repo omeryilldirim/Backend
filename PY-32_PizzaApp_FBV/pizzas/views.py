@@ -5,7 +5,6 @@ from .forms import PizzaForm
 def home(request):
     return render(request, 'pizzas/home.html')
 
-
 def pizzas(request):
     pizzas = Pizza.objects.all()
     
@@ -13,7 +12,6 @@ def pizzas(request):
         'pizzas' : pizzas
     }
     return render(request, 'pizzas/pizzas.html', context)
-
 
 def order_view(request, id):
     pizza = Pizza.objects.get(id=id)
@@ -33,7 +31,6 @@ def order_view(request, id):
     
     return render(request, 'pizzas/order.html', context)
 
-
 def my_orders(request):
     orders = Order.objects.filter(user=request.user)
     
@@ -41,7 +38,6 @@ def my_orders(request):
         'orders' : orders
     }
     return render(request, 'pizzas/my_orders.html', context)
-
 
 def update_order_view(request, id):
     order = Order.objects.get(id=id)
@@ -60,7 +56,6 @@ def update_order_view(request, id):
     }
     
     return render(request, 'pizzas/update_order.html', context)
-
 
 def delete_order_view(request, id):
     order = Order.objects.get(id=id)
