@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect
 from .models import Pizza, Order
 from .forms import PizzaForm
 
-
 def home(request):
     return render(request, 'pizzas/home.html')
 
